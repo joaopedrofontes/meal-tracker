@@ -1,0 +1,31 @@
+services:
+  postgres:
+    image: postgres:14-alpine
+    container_name: postgres_meal_tracker
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data_meal_tracker:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin_meal_tracker
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: password
+    ports:
+      - "8081:80"
+    depends_on:
+      - postgres
+    volumes:
+      - pgadmin_data_meal_tracker:/var/lib/pgadmin
+
+volumes:
+  postgres_data_meal_tracker:
+    name: postgres_data_meal_tracker
+  pgadmin_data_meal_tracker:
+    name: pgadmin_data_meal_tracker
