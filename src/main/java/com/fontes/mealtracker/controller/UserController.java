@@ -11,7 +11,7 @@ import java.util.UUID;
 @RequestMapping(value = "/api/user")
 public class UserController {
 
-    public final UserSerivce userSerivce;
+    private final UserSerivce userSerivce;
 
     public UserController(UserSerivce userSerivce) {
         this.userSerivce = userSerivce;
