@@ -1,4 +1,4 @@
-package com.fontes.mealtracker.controller;
+package com.fontes.mealtracker.controller.rest;
 
 
 import com.fontes.mealtracker.model.Meal;

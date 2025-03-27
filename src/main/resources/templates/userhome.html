@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Meal Tracker - Home</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/scripts.js" defer></script>
+</head>
+<body>
+<div class="container">
+    <h1>Bem-vindo, <span th:text="${user.name}">Usuário</span>!</h1>
+    <p>Seu email: <span th:text="${user.email}"></span></p>
+    <button onclick="logout()">Logout</button>
+</div>
+</body>
+</html>

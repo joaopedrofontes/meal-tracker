@@ -1,8 +1,7 @@
-package com.fontes.mealtracker.controller;
+package com.fontes.mealtracker.controller.rest;
 
 import com.fontes.mealtracker.model.User;
 import com.fontes.mealtracker.service.UserSerivce;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
