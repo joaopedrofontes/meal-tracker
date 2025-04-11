@@ -24,8 +24,19 @@ services:
     volumes:
       - pgadmin_data_meal_tracker:/var/lib/pgadmin
 
+  mongo:
+    image: mongo:latest
+    container_name: mongo_meal_tracker
+    volumes:
+      - mongo_data_meal_tracker:/data/db
+    ports:
+      - "27017:27017"
+
+
 volumes:
   postgres_data_meal_tracker:
     name: postgres_data_meal_tracker
   pgadmin_data_meal_tracker:
     name: pgadmin_data_meal_tracker
+  mongo_data_meal_tracker:
+    name: mongo_data_meal_tracker
