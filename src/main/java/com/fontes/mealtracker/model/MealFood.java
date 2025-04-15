@@ -15,6 +15,10 @@ public class MealFood {
     @Column(name = "meal_food_id")
     private UUID mealFoodId;
 
+    @ManyToOne
+    @JoinColumn(name = "meal_id", nullable = false)
+    private Meal meal;
+
     @Column(name = "food_id")
     private String foodId;
 
