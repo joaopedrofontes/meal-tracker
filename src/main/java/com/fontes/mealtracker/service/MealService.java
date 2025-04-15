@@ -2,7 +2,7 @@ package com.fontes.mealtracker.service;
 
 
 import com.fontes.mealtracker.model.Meal;
-import com.fontes.mealtracker.repository.MealRepository;
+import com.fontes.mealtracker.repository.postgres.MealRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

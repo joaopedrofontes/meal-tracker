@@ -1,4 +1,4 @@
-package com.fontes.mealtracker.repository;
+package com.fontes.mealtracker.repository.postgres;
 
 
 import com.fontes.mealtracker.model.Meal;

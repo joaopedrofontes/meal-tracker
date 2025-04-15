@@ -1,7 +1,7 @@
 package com.fontes.mealtracker.service;
 
 import com.fontes.mealtracker.model.MealFood;
-import com.fontes.mealtracker.repository.MealFoodRepository;
+import com.fontes.mealtracker.repository.postgres.MealFoodRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
