@@ -1,4 +1,4 @@
-package com.fontes.mealtracker.controller.rest;
+package com.fontes.mealtracker.controller;
 
 import com.fontes.mealtracker.model.User;
 import com.fontes.mealtracker.service.UserSerivce;
