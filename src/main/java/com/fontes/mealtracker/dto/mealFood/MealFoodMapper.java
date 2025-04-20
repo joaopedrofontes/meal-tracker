@@ -1,5 +1,6 @@
 package com.fontes.mealtracker.dto.mealFood;
 
+import com.fontes.mealtracker.model.Meal;
 import com.fontes.mealtracker.model.MealFood;
 
 import java.time.ZonedDateTime;
@@ -12,13 +13,17 @@ public class MealFoodMapper {
         mealFood.setQuantityInGrams(dto.getQuantityInGrams());
         mealFood.setCreatedAt(ZonedDateTime.now());
 
+        Meal meal = new Meal();
+        meal.setMealId(dto.getMealId());
+        mealFood.setMeal(meal);
+
         return mealFood;
     }
 
     public static MealFoodResponseDTO toMealFoodResponseDTO(MealFood mealFood) {
         return new MealFoodResponseDTO(
                 mealFood.getId(),
-                mealFood.getMealId(),
+                mealFood.getMeal().getMealId(),
                 mealFood.getFoodId(),
                 mealFood.getQuantityInGrams()
         );
