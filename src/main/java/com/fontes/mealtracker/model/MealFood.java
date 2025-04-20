@@ -36,6 +36,14 @@ public class MealFood {
         this.mealFoodId = mealFoodId;
     }
 
+    public UUID getMealId() {
+        return meal.getMealId();
+    }
+
+    public void setMealId(UUID mealId) {
+        this.mealFoodId = mealId;
+    }
+
     public String getFoodId() {
         return foodId;
     }
