@@ -1,6 +1,9 @@
 package com.fontes.mealtracker.service;
 
 
+import com.fontes.mealtracker.dto.meal.MealMapper;
+import com.fontes.mealtracker.dto.meal.MealRequestDTO;
+import com.fontes.mealtracker.dto.meal.MealResponseDTO;
 import com.fontes.mealtracker.model.Meal;
 import com.fontes.mealtracker.repository.postgres.MealRepository;
 import org.springframework.stereotype.Service;
@@ -17,12 +20,15 @@ public class MealService {
         this.mealRepository = mealRepository;
     }
 
-    public Meal save(Meal meal) {
-        return mealRepository.save(meal);
+    public MealResponseDTO save(MealRequestDTO dto) {
+        Meal meal = MealMapper.toEntity(dto);
+        Meal saved = mealRepository.save(meal);
+        return MealMapper.toMealResponseDTO(saved);
     }
 
-    public Optional<Meal> findById(UUID id) {
-        return mealRepository.findById(id);
+    public Optional<MealResponseDTO> findById(UUID id) {
+        return mealRepository.findById(id)
+                .map(MealMapper::toMealResponseDTO);
     }
 
     public void deleteById(UUID id) {
