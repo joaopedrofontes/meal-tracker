@@ -22,16 +22,14 @@ public class MealFoodController {
     }
 
     @PostMapping
-    public MealFoodResponseDTO createMealFood(@RequestBody @Valid MealFoodRequestDTO dto) {
-        MealFood mealFood = MealFoodMapper.toEntity(dto);
-        MealFood saved = mealFoodService.save(mealFood);
-        return MealFoodMapper.toMealFoodResponseDTO(saved);
+    public ResponseEntity<MealFoodResponseDTO> createMealFood(@RequestBody @Valid MealFoodRequestDTO dto) {
+        MealFoodResponseDTO response = mealFoodService.save(dto);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<MealFoodResponseDTO> getMealFood(@PathVariable UUID id) {
         return mealFoodService.findById(id)
-                .map(MealFoodMapper::toMealFoodResponseDTO)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
