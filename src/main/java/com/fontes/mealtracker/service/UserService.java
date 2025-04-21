@@ -1,6 +1,9 @@
 package com.fontes.mealtracker.service;
 
 
+import com.fontes.mealtracker.dto.user.UserMapper;
+import com.fontes.mealtracker.dto.user.UserRequestDTO;
+import com.fontes.mealtracker.dto.user.UserResponseDTO;
 import com.fontes.mealtracker.model.User;
 import com.fontes.mealtracker.repository.postgres.UserRepository;
 import org.springframework.stereotype.Service;
@@ -17,12 +20,15 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User save(User user) {
-        return userRepository.save(user);
+    public UserResponseDTO save(UserRequestDTO dto) {
+        User user = UserMapper.toEntity(dto);
+        User saved = userRepository.save(user);
+        return UserMapper.toUserResponseDTO(saved);
     }
 
-    public Optional<User> findById(UUID id) {
-        return userRepository.findById(id);
+    public Optional<UserResponseDTO> findById(UUID id) {
+        return userRepository.findById(id)
+                .map(UserMapper::toUserResponseDTO);
     }
 
     public void deleteById(UUID id) {
