@@ -1,8 +1,13 @@
 package com.fontes.mealtracker.controller;
 
 
+import com.fontes.mealtracker.dto.meal.MealMapper;
+import com.fontes.mealtracker.dto.meal.MealRequestDTO;
+import com.fontes.mealtracker.dto.meal.MealResponseDTO;
 import com.fontes.mealtracker.model.Meal;
 import com.fontes.mealtracker.service.MealService;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -18,14 +23,15 @@ public class MealController {
     }
 
     @PostMapping
-    public Meal createMeal(@RequestBody Meal meal) {
-        return mealService.save(meal);
+    public ResponseEntity<MealResponseDTO> createMeal(@RequestBody @Valid MealRequestDTO dto) {
+        MealResponseDTO response = mealService.save(dto);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping(value = "/{id}")
-    public Meal getMeal(@PathVariable UUID id) {
-        return mealService.findById(id).orElse(null);
+    public ResponseEntity<MealResponseDTO> getMeal(@PathVariable UUID id) {
+        return mealService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
-
-    
 }

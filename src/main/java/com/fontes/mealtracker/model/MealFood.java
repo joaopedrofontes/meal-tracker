@@ -36,6 +36,14 @@ public class MealFood {
         this.mealFoodId = mealFoodId;
     }
 
+    public Meal getMeal() {
+        return meal;
+    }
+
+    public void setMeal(Meal meal) {
+        this.meal = meal;
+    }
+
     public String getFoodId() {
         return foodId;
     }
