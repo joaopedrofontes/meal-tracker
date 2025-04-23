@@ -30,4 +30,10 @@ public class FoodController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<FoodResponseDTO> deleteFood(@PathVariable String id) {
+        return foodService.deleteById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 }

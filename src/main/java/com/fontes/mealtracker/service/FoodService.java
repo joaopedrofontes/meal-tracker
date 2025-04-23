@@ -29,7 +29,10 @@ public class FoodService {
                 .map(FoodMapper::toFoodResponseDTO);
     }
 
-    public void deleteById(String id) {
-        foodRepository.deleteById(id);
+    public Optional<FoodResponseDTO> deleteById(String id) {
+        return foodRepository.findById(id).map(food -> {
+            foodRepository.deleteById(id);
+            return FoodMapper.toFoodResponseDTO(food);
+        });
     }
 }
