@@ -31,7 +31,10 @@ public class MealService {
                 .map(MealMapper::toMealResponseDTO);
     }
 
-    public void deleteById(UUID id) {
-        mealRepository.deleteById(id);
+    public Optional<MealResponseDTO> deleteById(UUID id) {
+        return mealRepository.findById(id).map(meal -> {
+            mealRepository.deleteById(id);
+            return MealMapper.toMealResponseDTO(meal);
+        });
     }
 }

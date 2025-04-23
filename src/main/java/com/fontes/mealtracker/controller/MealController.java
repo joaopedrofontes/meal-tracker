@@ -34,4 +34,11 @@ public class MealController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @DeleteMapping(value = "{/id}")
+    public ResponseEntity<MealResponseDTO> deleteMeal(@PathVariable UUID id) {
+        return mealService.deleteById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 }
