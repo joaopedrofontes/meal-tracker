@@ -31,7 +31,10 @@ public class UserService {
                 .map(UserMapper::toUserResponseDTO);
     }
 
-    public void deleteById(UUID id) {
-        userRepository.deleteById(id);
+    public Optional<UserResponseDTO> deleteById(UUID id) {
+        return userRepository.findById(id).map(user -> {
+            userRepository.deleteById(id);
+            return UserMapper.toUserResponseDTO(user);
+        });
     }
 }

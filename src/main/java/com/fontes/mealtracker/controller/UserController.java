@@ -36,7 +36,9 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public void deleteUser(@PathVariable UUID id) {
-        userService.deleteById(id);
+    public ResponseEntity<UserResponseDTO> deleteUser(@PathVariable UUID id) {
+        return userService.deleteById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }
