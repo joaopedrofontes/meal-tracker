@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -33,6 +34,12 @@ public class MealController {
         return mealService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping(value = "/user/{userId}")
+    public ResponseEntity<List<MealResponseDTO>> getMealByUserId(@PathVariable UUID userId) {
+        List<MealResponseDTO> response = mealService.findByUserId(userId);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping(value = "{/id}")
