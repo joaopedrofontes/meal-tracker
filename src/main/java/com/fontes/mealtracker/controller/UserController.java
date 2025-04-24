@@ -35,6 +35,13 @@ public class UserController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping(value = "/by-email")
+    public ResponseEntity<UserResponseDTO> getUserByEmail(@RequestParam String email) {
+        return userService.findByEmail(email)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<UserResponseDTO> deleteUser(@PathVariable UUID id) {
         return userService.deleteById(id)

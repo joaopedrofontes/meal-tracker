@@ -31,6 +31,11 @@ public class UserService {
                 .map(UserMapper::toUserResponseDTO);
     }
 
+    public Optional<UserResponseDTO> findByEmail(String email) {
+            return userRepository.findByEmail(email)
+                    .map(UserMapper::toUserResponseDTO);
+    }
+
     public Optional<UserResponseDTO> deleteById(UUID id) {
         return userRepository.findById(id).map(user -> {
             userRepository.deleteById(id);
