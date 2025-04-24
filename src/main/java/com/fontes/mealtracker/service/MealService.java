@@ -8,8 +8,10 @@ import com.fontes.mealtracker.model.Meal;
 import com.fontes.mealtracker.repository.postgres.MealRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class MealService {
@@ -31,7 +33,17 @@ public class MealService {
                 .map(MealMapper::toMealResponseDTO);
     }
 
-    public void deleteById(UUID id) {
-        mealRepository.deleteById(id);
+    public List<MealResponseDTO> findByUserId(UUID userId) {
+        List<Meal> meals = mealRepository.findAllByUserId(userId);
+        return meals.stream()
+                .map(MealMapper::toMealResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    public Optional<MealResponseDTO> deleteById(UUID id) {
+        return mealRepository.findById(id).map(meal -> {
+            mealRepository.deleteById(id);
+            return MealMapper.toMealResponseDTO(meal);
+        });
     }
 }
