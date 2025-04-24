@@ -24,8 +24,15 @@ public class FoodController {
     }
 
     @GetMapping(value=  "/{id}")
-    public ResponseEntity<FoodResponseDTO> getFood(@PathVariable String id) {
+    public ResponseEntity<FoodResponseDTO> getFoodById(@PathVariable String id) {
         return foodService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping
+    public ResponseEntity<FoodResponseDTO> getFoodByName(@RequestParam String name) {
+        return foodService.findByName(name)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
