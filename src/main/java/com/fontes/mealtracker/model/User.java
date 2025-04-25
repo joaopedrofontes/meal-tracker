@@ -27,6 +27,9 @@ public class User {
     @Column(name = "created_at")
     private ZonedDateTime createdAt;
 
+    @Column(name = "role")
+    private String role;
+
     public UUID getId() {
         return id;
     }
@@ -65,6 +68,14 @@ public class User {
 
     public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
 }
