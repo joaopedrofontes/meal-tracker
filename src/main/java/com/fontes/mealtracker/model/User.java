@@ -1,6 +1,7 @@
 package com.fontes.mealtracker.model;
 
 
+import com.fontes.mealtracker.security.UserRole;
 import jakarta.persistence.*;
 
 import java.time.ZonedDateTime;
@@ -27,8 +28,9 @@ public class User {
     @Column(name = "created_at")
     private ZonedDateTime createdAt;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "role")
-    private String role;
+    private UserRole role;
 
     public UUID getId() {
         return id;
@@ -70,11 +72,11 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    public String getRole() {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(UserRole role) {
         this.role = role;
     }
 
