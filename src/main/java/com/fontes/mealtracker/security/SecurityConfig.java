@@ -26,11 +26,17 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/user/register").permitAll()
 
+                        //user controller
                         .requestMatchers(HttpMethod.POST, "/api/user").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/user/by-email").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/user/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/user/**").authenticated()
 
+                        //food controller
+                        .requestMatchers(HttpMethod.POST, "api/food").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/food/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/food/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/food").authenticated()
 
                         .anyRequest().authenticated()
                 )
