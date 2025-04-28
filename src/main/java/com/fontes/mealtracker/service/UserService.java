@@ -56,6 +56,18 @@ public class UserService {
                     .map(UserMapper::toUserResponseDTO);
     }
 
+    public Optional<UserResponseDTO> update(UUID id, UserRequestDTO dto) {
+        return userRepository.findById(id)
+                .map(user -> {
+                    user.setEmail(dto.getEmail());
+                    user.setName(dto.getName());
+                    user.setPassword(passwordEncoder.encode(dto.getPassword()));
+                    user.setRole(dto.getRole());
+                    User updatedUser = userRepository.save(user);
+                    return UserMapper.toUserResponseDTO(updatedUser);
+                });
+    }
+
     public Optional<UserResponseDTO> deleteById(UUID id) {
         return userRepository.findById(id).map(user -> {
             userRepository.deleteById(id);

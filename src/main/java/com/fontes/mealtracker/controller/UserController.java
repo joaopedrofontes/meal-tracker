@@ -52,6 +52,13 @@ public class UserController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<UserResponseDTO> updateUser(@PathVariable UUID id, @RequestBody @Valid UserRequestDTO dto) {
+        return userService.update(id, dto)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.badRequest().build());
+    }
+
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<UserResponseDTO> deleteUser(@PathVariable UUID id) {
         return userService.deleteById(id)
