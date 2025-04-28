@@ -4,6 +4,7 @@ package com.fontes.mealtracker.service;
 import com.fontes.mealtracker.dto.user.UserMapper;
 import com.fontes.mealtracker.dto.user.UserRequestDTO;
 import com.fontes.mealtracker.dto.user.UserResponseDTO;
+import com.fontes.mealtracker.dto.user.UserUpdateDTO;
 import com.fontes.mealtracker.model.User;
 import com.fontes.mealtracker.repository.postgres.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -54,6 +55,38 @@ public class UserService {
     public Optional<UserResponseDTO> findByEmail(String email) {
             return userRepository.findByEmail(email)
                     .map(UserMapper::toUserResponseDTO);
+    }
+
+    public Optional<UserResponseDTO> update(UUID id, UserRequestDTO dto) {
+        return userRepository.findById(id)
+                .map(user -> {
+                    user.setEmail(dto.getEmail());
+                    user.setName(dto.getName());
+                    user.setPassword(passwordEncoder.encode(dto.getPassword()));
+                    user.setRole(dto.getRole());
+                    User updatedUser = userRepository.save(user);
+                    return UserMapper.toUserResponseDTO(updatedUser);
+                });
+    }
+
+    public Optional<UserResponseDTO> patch(UUID id, UserUpdateDTO dto) {
+        return userRepository.findById(id)
+                .map(user -> {
+                    if (dto.email() != null) {
+                        user.setEmail(dto.email());
+                    }
+                    if (dto.name() != null) {
+                        user.setName(dto.name());
+                    }
+                    if (dto.password() != null) {
+                        user.setPassword(passwordEncoder.encode(dto.password()));
+                    }
+                    if (dto.role() != null) {
+                        user.setRole(dto.role());
+                    }
+                    User updated = userRepository.save(user);
+                    return UserMapper.toUserResponseDTO(updated);
+                });
     }
 
     public Optional<UserResponseDTO> deleteById(UUID id) {

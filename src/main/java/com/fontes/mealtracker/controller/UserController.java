@@ -3,6 +3,7 @@ package com.fontes.mealtracker.controller;
 import com.fontes.mealtracker.dto.user.UserMapper;
 import com.fontes.mealtracker.dto.user.UserRequestDTO;
 import com.fontes.mealtracker.dto.user.UserResponseDTO;
+import com.fontes.mealtracker.dto.user.UserUpdateDTO;
 import com.fontes.mealtracker.model.User;
 import com.fontes.mealtracker.service.MealService;
 import com.fontes.mealtracker.service.UserService;
@@ -50,6 +51,20 @@ public class UserController {
         return userService.findByEmail(email)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<UserResponseDTO> updateUser(@PathVariable UUID id, @RequestBody @Valid UserRequestDTO dto) {
+        return userService.update(id, dto)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.badRequest().build());
+    }
+
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity<UserResponseDTO> patchUser(@PathVariable UUID id, @RequestBody @Valid UserUpdateDTO dto) {
+        return userService.patch(id, dto)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.badRequest().build());
     }
 
     @DeleteMapping(value = "/{id}")
