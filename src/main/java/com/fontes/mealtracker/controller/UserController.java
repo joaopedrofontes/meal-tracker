@@ -22,10 +22,20 @@ public class UserController {
         this.userService = userService;
     }
 
+    //criar user sem verificação
     @PostMapping
     public ResponseEntity<UserResponseDTO> createUser(@RequestBody @Valid UserRequestDTO dto) {
         UserResponseDTO response = userService.save(dto);
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping(value = "/register")
+    public ResponseEntity<UserResponseDTO> registerUser(@RequestBody @Valid UserRequestDTO dto) {
+        var response = userService.register(dto);
+        if(response.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(response.get());
     }
 
     @GetMapping(value = "/{id}")

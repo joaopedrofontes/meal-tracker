@@ -6,6 +6,7 @@ import com.fontes.mealtracker.dto.user.UserRequestDTO;
 import com.fontes.mealtracker.dto.user.UserResponseDTO;
 import com.fontes.mealtracker.model.User;
 import com.fontes.mealtracker.repository.postgres.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -15,15 +16,34 @@ import java.util.UUID;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
+
+    //salvar sem verificação
     public UserResponseDTO save(UserRequestDTO dto) {
         User user = UserMapper.toEntity(dto);
         User saved = userRepository.save(user);
         return UserMapper.toUserResponseDTO(saved);
+    }
+
+    public Optional<UserResponseDTO> register(UserRequestDTO dto) {
+        if(userRepository.findByEmail(dto.getEmail()).isPresent()) {
+            return Optional.empty();
+        }
+
+        String encryptedPassword = passwordEncoder.encode(dto.getPassword());
+
+        dto.setPassword(encryptedPassword);
+
+        User user = UserMapper.toEntity(dto);
+        User saved = userRepository.save(user);
+
+        return Optional.of(UserMapper.toUserResponseDTO(saved));
     }
 
     public Optional<UserResponseDTO> findById(UUID id) {

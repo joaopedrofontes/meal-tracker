@@ -1,8 +1,10 @@
 package com.fontes.mealtracker.dto.user;
 
 
+import com.fontes.mealtracker.security.UserRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class UserRequestDTO {
 
@@ -15,6 +17,9 @@ public class UserRequestDTO {
 
     @NotBlank
     private String password;
+
+    @NotNull
+    private UserRole role;
 
     public String getName() {
         return name;
@@ -38,6 +43,14 @@ public class UserRequestDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
+
+    public UserRole getRole() {
+        return role;
     }
 
 }
