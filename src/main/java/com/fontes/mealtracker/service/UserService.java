@@ -4,7 +4,7 @@ package com.fontes.mealtracker.service;
 import com.fontes.mealtracker.dto.user.UserMapper;
 import com.fontes.mealtracker.dto.user.UserRequestDTO;
 import com.fontes.mealtracker.dto.user.UserResponseDTO;
-import com.fontes.mealtracker.dto.user.UserUpdateDTO;
+import com.fontes.mealtracker.dto.user.UserPatchRequestDTO;
 import com.fontes.mealtracker.model.User;
 import com.fontes.mealtracker.repository.postgres.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -69,7 +69,7 @@ public class UserService {
                 });
     }
 
-    public Optional<UserResponseDTO> patch(UUID id, UserUpdateDTO dto) {
+    public Optional<UserResponseDTO> patch(UUID id, UserPatchRequestDTO dto) {
         return userRepository.findById(id)
                 .map(user -> {
                     if (dto.email() != null) {

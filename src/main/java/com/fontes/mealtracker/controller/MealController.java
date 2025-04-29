@@ -2,6 +2,7 @@ package com.fontes.mealtracker.controller;
 
 
 import com.fontes.mealtracker.dto.meal.MealMapper;
+import com.fontes.mealtracker.dto.meal.MealPatchRequestDTO;
 import com.fontes.mealtracker.dto.meal.MealRequestDTO;
 import com.fontes.mealtracker.dto.meal.MealResponseDTO;
 import com.fontes.mealtracker.model.Meal;
@@ -48,6 +49,14 @@ public class MealController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity<MealResponseDTO> patchMeal(@PathVariable UUID id, @RequestBody @Valid MealPatchRequestDTO dto) {
+        return mealService.patch(id, dto)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<MealResponseDTO> deleteMeal(@PathVariable UUID id) {

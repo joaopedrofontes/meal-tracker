@@ -2,6 +2,7 @@ package com.fontes.mealtracker.service;
 
 
 import com.fontes.mealtracker.dto.meal.MealMapper;
+import com.fontes.mealtracker.dto.meal.MealPatchRequestDTO;
 import com.fontes.mealtracker.dto.meal.MealRequestDTO;
 import com.fontes.mealtracker.dto.meal.MealResponseDTO;
 import com.fontes.mealtracker.model.Meal;
@@ -50,6 +51,25 @@ public class MealService {
                     meal.setName(dto.getName());
                     meal.setDate(dto.getDate());
 
+                    Meal updated = mealRepository.save(meal);
+                    return MealMapper.toMealResponseDTO(updated);
+                });
+    }
+
+    public Optional<MealResponseDTO> patch(UUID id, MealPatchRequestDTO dto) {
+        return mealRepository.findById(id)
+                .map(meal -> {
+                    if(dto.user() != null) {
+                        User user = new User();
+                        user.setId(dto.user().getId());
+                        meal.setUser(user);
+                    }
+                    if(dto.name() != null) {
+                        meal.setName(dto.name());
+                    }
+                    if(dto.date() != null) {
+                        meal.setDate(dto.date());
+                    }
                     Meal updated = mealRepository.save(meal);
                     return MealMapper.toMealResponseDTO(updated);
                 });

@@ -2,7 +2,7 @@ package com.fontes.mealtracker.dto.user;
 
 import com.fontes.mealtracker.security.UserRole;
 
-public record UserUpdateDTO(
+public record UserPatchRequestDTO(
         String name,
         String email,
         String password,

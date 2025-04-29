@@ -1,10 +1,8 @@
 package com.fontes.mealtracker.controller;
 
-import com.fontes.mealtracker.dto.user.UserMapper;
 import com.fontes.mealtracker.dto.user.UserRequestDTO;
 import com.fontes.mealtracker.dto.user.UserResponseDTO;
-import com.fontes.mealtracker.dto.user.UserUpdateDTO;
-import com.fontes.mealtracker.model.User;
+import com.fontes.mealtracker.dto.user.UserPatchRequestDTO;
 import com.fontes.mealtracker.service.MealService;
 import com.fontes.mealtracker.service.UserService;
 import jakarta.validation.Valid;
@@ -61,7 +59,7 @@ public class UserController {
     }
 
     @PatchMapping(value = "/{id}")
-    public ResponseEntity<UserResponseDTO> patchUser(@PathVariable UUID id, @RequestBody @Valid UserUpdateDTO dto) {
+    public ResponseEntity<UserResponseDTO> patchUser(@PathVariable UUID id, @RequestBody @Valid UserPatchRequestDTO dto) {
         return userService.patch(id, dto)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.badRequest().build());
