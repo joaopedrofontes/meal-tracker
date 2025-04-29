@@ -5,6 +5,7 @@ import com.fontes.mealtracker.dto.meal.MealMapper;
 import com.fontes.mealtracker.dto.meal.MealRequestDTO;
 import com.fontes.mealtracker.dto.meal.MealResponseDTO;
 import com.fontes.mealtracker.model.Meal;
+import com.fontes.mealtracker.model.User;
 import com.fontes.mealtracker.repository.postgres.MealRepository;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,20 @@ public class MealService {
         return meals.stream()
                 .map(MealMapper::toMealResponseDTO)
                 .collect(Collectors.toList());
+    }
+
+    public Optional<MealResponseDTO> update(UUID id, MealRequestDTO dto) {
+        return mealRepository.findById(id)
+                .map(meal -> {
+                    User user = new User();
+                    user.setId(dto.getUserId());
+                    meal.setUser(user);
+                    meal.setName(dto.getName());
+                    meal.setDate(dto.getDate());
+
+                    Meal updated = mealRepository.save(meal);
+                    return MealMapper.toMealResponseDTO(updated);
+                });
     }
 
     public Optional<MealResponseDTO> deleteById(UUID id) {
